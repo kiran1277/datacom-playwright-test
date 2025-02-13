@@ -26,7 +26,7 @@ test.describe('Bugs Form Test', ()=>{
     expect(await page.locator(elements.termsCheckBox).isEnabled()).toBeTruthy();
 
   });
-  test('Valid Bugs Form Test', async ({page})=>{
+  test('Register user with valid data', async ({page})=>{
     await page.fill(elements.firstName, "Kiran");
     await page.fill(elements.lastName, "kallepu");
     await page.fill(elements.phone, "1234567891");
@@ -93,10 +93,10 @@ test.beforeEach( async ({page}) =>{
 test.afterEach( async ({page}: {page: Page}, testInfo) => {
   if(testInfo.status!== 'passed') await page.screenshot({path:`screenshots/${testInfo.title}.png`, fullPage: true});
 });
-test.describe('Field validation test ', ()=>{
+test.describe('Register user with invalid data ', ()=>{
 
   for (const user of userData) {
-    test(`Validation ${user.test}`, async ({page}) => {
+    test(`Register user with  ${user.test}`, async ({page}) => {
         await page.fill(elements.firstName, user.firstName);
         await page.fill(elements.lastName, user.lastName);
         await page.fill(elements.phone, user.phone);
