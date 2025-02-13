@@ -1,5 +1,7 @@
 import {test, expect} from "playwright/test";
 import {Page} from "playwright";
+
+//Page Elements
 const elements = {
 
   firstName: "#firstName",
@@ -15,6 +17,7 @@ const elements = {
 }
 
 test.describe('Bugs Form Test', ()=>{
+  //check all fields are enabled and interactable
   test("Check all required fields enabled", async ({page}) =>{
     expect(await page.locator(elements.firstName).isEditable()).toBeTruthy();
     expect(await page.locator(elements.lastName).isEditable()).toBeTruthy();
@@ -51,7 +54,7 @@ test.describe('Bugs Form Test', ()=>{
   });
 
   test('Label validation', async ({page}) =>{
-    //validating label displayed on the page
+    //validating label displayed on the page to check spelling mistakes
     await expect(page.locator("label[for='firstName']")).toContainText("First Name");
     await expect(page.locator("label[for='lastName']").first()).toContainText("Last Name");
     await expect(page.locator("label[for='exampleInputEmail1']")).toContainText("Email address");
