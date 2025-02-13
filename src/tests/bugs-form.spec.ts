@@ -1,4 +1,4 @@
-import {test, expect, defineConfig} from "playwright/test";
+import {test, expect} from "playwright/test";
 import {Page} from "playwright";
 const elements = {
 
@@ -15,7 +15,6 @@ const elements = {
 }
 
 test.describe('Bugs Form Test', ()=>{
-  let message:null | string="";
   test("Check all required fields enabled", async ({page}) =>{
     expect(await page.locator(elements.firstName).isEditable()).toBeTruthy();
     expect(await page.locator(elements.lastName).isEditable()).toBeTruthy();
