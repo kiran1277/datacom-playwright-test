@@ -27,6 +27,7 @@ test.describe('Bugs Form Test', ()=>{
 
   });
   test('Register user with valid data', async ({page})=>{
+    //Register user and validate response displayed
     await page.fill(elements.firstName, "Kiran");
     await page.fill(elements.lastName, "kallepu");
     await page.fill(elements.phone, "1234567891");
@@ -50,7 +51,7 @@ test.describe('Bugs Form Test', ()=>{
   });
 
   test('Label validation', async ({page}) =>{
-
+    //validating label displayed on the page
     await expect(page.locator("label[for='firstName']")).toContainText("First Name");
     await expect(page.locator("label[for='lastName']").first()).toContainText("Last Name");
     await expect(page.locator("label[for='exampleInputEmail1']")).toContainText("Email address");
@@ -68,6 +69,7 @@ test.describe('Bugs Form Test', ()=>{
 
 
 });
+//test data for negative test cases
 const userData=[
   {test:"numericFirstName",firstName : "1234", lastName : "kiran", phone: "1234567891", emailAddress: "test@test.com", password: "test@test.com", country : "New Zealand", message:"First Name should not be numeric"},
   {test:"emptyFirstName",firstName : "", lastName : "kiran", phone: "1234567891", emailAddress: "test@test.com", password: "test@test.com", country : "New Zealand", message:"First Name should not be empty"},
@@ -86,12 +88,15 @@ const userData=[
   {test:"maxLengthPassword",firstName : "kiran", lastName : "kiran", phone: "1234567891", emailAddress: "test@test.com", password: "test@test.com1234567", country : "New Zealand", message:"Successfully registered the following information"},
   {test:"overLengthPassword",firstName : "kiran", lastName : "kiran", phone: "1234567891", emailAddress: "test@test.com", password: "abcdefghijklmnopqrstuv", country : "New Zealand", message:"The password should contain between [6,20] characters!"},
 ];
+//test initialisation
 test.beforeEach( async ({page}) =>{
   await page.goto('https://qa-practice.netlify.app/bugs-form');
+  await expect(page.locator('#content h2')).toContainText('CHALLENGE - Spot the BUGS!')
 });
 
 test.afterEach( async ({page}: {page: Page}, testInfo) => {
   if(testInfo.status!== 'passed') await page.screenshot({path:`screenshots/${testInfo.title}.png`, fullPage: true});
+  await page.close();
 });
 test.describe('Register user with invalid data ', ()=>{
 
