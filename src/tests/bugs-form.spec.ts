@@ -93,11 +93,13 @@ test.beforeEach( async ({page}) =>{
   await page.goto('https://qa-practice.netlify.app/bugs-form');
   await expect(page.locator('#content h2')).toContainText('CHALLENGE - Spot the BUGS!')
 });
-
+//taking screenshot and dispose page
 test.afterEach( async ({page}: {page: Page}, testInfo) => {
   if(testInfo.status!== 'passed') await page.screenshot({path:`screenshots/${testInfo.title}.png`, fullPage: true});
   await page.close();
 });
+
+//data driven test for negative scenarios
 test.describe('Register user with invalid data ', ()=>{
 
   for (const user of userData) {
